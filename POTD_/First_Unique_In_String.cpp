@@ -6,22 +6,16 @@ class Solution
 public:
     int firstUniqChar(string s)
     {
-        map<char, int> mp;
+        vector<int> v(26, 0);
         for (int i = 0; i < s.size(); i++)
         {
-            if (mp.find(s[i]) == mp.end())
-                mp[s[i]] = i;
-            else
-                mp[s[i]] = -1;
+            v[s[i] - 'a']++;
         }
-        int ans = s.size();
-        for (auto i : mp)
+        for (int i = 0; i < s.size(); i++)
         {
-            if (i.second != -1)
-                ans = min(ans, i.second);
+            if (v[s[i] - 'a'] == 1)
+                return i;
         }
-        if (ans == s.size())
-            ans = -1;
-        return ans;
+        return -1;
     }
 };
