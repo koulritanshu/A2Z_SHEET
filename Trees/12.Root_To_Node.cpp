@@ -11,6 +11,6 @@ public:
     {
         left = right = NULL;
         val = 0;
-    }
+    }    
 };
 
