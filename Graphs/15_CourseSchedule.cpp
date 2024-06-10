@@ -47,3 +47,42 @@ public:
         return true;
     }
 };
+
+class CYCLE_USING_BFS
+{
+public:
+    bool canFinish(int numCourses, vector<vector<int>> &prerequisites)
+    {
+        map<int, vector<int>> graph;
+        vector<int> indegree(numCourses, 0);
+        for (int i = 0; i < prerequisites.size(); i++)
+        {
+            graph[prerequisites[i][1]].push_back(prerequisites[i][0]);
+            indegree[prerequisites[i][0]]++;
+        }
+        queue<int> q;
+        for (int i = 0; i < numCourses; i++)
+        {
+            if (!indegree[i])
+            {
+                q.push(i);
+            }
+        }
+        int cnt = 0;
+        while (!q.empty())
+        {
+            int fr = q.front();
+            q.pop();
+            cnt++;
+            for (auto &i : graph[fr])
+            {
+                indegree[i]--;
+                if (indegree[i] == 0)
+                {
+                    q.push(i);
+                }
+            }
+        }
+        return (cnt == numCourses);
+    }
+};
