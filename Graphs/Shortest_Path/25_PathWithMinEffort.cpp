@@ -34,7 +34,7 @@ public:
     }
 };
 
-// If we are using a priority queue then we can simply return the answer when we are at n-1 and m-1
-// Because we can guarantee that on reaching (n-1,m-1) we have the best answer because priority queue
-// is in sorted order. If we are using a simple queue, then instead of returning on reaching (n-1,m-1)
-// we need to continue as we might a better solution later.
+// If we are using a priority queue then we can simply return the answer when we are at (n-1,m-1)
+// because we can guarantee that on reaching (n-1,m-1) we have the best answer because priority queue
+// is in sorted order. If we are using a simple queue, then instead of returning on reaching (n-1,m-1),
+// we need to continue as we might find a better solution later.
