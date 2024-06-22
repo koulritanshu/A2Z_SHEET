@@ -1,0 +1,22 @@
+1. Djikstra Algorithm fails on two cases:
+
+    a) If the graph contains negative edges, then the solution generated using
+       Djikstra won't be correct.
+
+    b) If the graph contains negative cycles, then the Djikstra algorithm will
+       never terminate
+
+2. Bellman Ford algorithm can be used to make sure that the graph works correctly
+   for negative edges and it can be used to detect negative cycles if the graph
+   contains one.
+
+3. Bellman ford algorithm states that the relaxation step will take place (n-1)
+   times because in the worst case at each step only one value in the distance
+   vector will change.
+
+   Relaxation Step: if(dist[u] != INT_MAX && dist[u] + c < dist[v]) dist[v] = dist[u] + c;
+
+4. If on performing relaxation at the nth step a change in the distance vector
+   takes place, that means the graph contains negative cycles because according to
+   the worst case, all the changes must have happened till the (n-1)th iteration.
+ 
