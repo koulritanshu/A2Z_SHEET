@@ -7,7 +7,37 @@ struct Node{
     Node*right;
 };
 
-class Solution {
+struct TreeNode{
+    int val;
+    TreeNode*left;
+    TreeNode*right;
+};
+
+class Better {
+public:
+    string func(vector<TreeNode*> &ans, TreeNode*root,unordered_map<string,int>&mp){
+        if(!root) return "? ";
+        string leftt = func(ans,root->left,mp);
+        string rightt = func(ans,root->right,mp);
+        string curr = to_string(root->val) + ' ' + leftt + rightt;
+        if(mp[curr]==1){
+            ans.push_back(root);
+            mp[curr]=2;
+        }else{
+            if(mp[curr]!=2) mp[curr]=1;
+        }
+        return curr;
+    }
+    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
+        vector<TreeNode*> ans;
+        unordered_map<string,int>mp;
+        func(ans,root->left,mp);
+        func(ans,root->right,mp);
+        return ans;
+    } 
+};
+
+class Brute {
   public:
     void trav(Node*curr,string &s){
         if(curr){
