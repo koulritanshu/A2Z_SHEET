@@ -14,6 +14,19 @@ public:
     }
 };
 
+class Node
+{
+public:
+    Node *left;
+    Node *right;
+    int data;
+    Node()
+    {
+        left = right = NULL;
+        data = 0;
+    }
+};
+
 // only difference is we will use <= x instead of < x (Reason: two nodes can have same x and y)
 
 class Solution {
@@ -45,5 +58,33 @@ class Solution {
         // if level does not exist in queue then directly push it into map
         // else replace the element in map to the current one in queue
         // this way height parameter is not required
+    }
+};
+
+class BFS {
+public:
+
+    vector <int> bottomView(Node *root) {
+        queue<pair<Node*,int>> q;
+        q.push({root,0});
+        map<int,int> mp;
+        mp[0] = root->data;
+        while(!q.empty()){
+            Node* fr = q.front().first;
+            int co = q.front().second;
+            q.pop();
+            mp[co] = fr->data;
+            if(fr->left){
+                q.push({fr->left,co-1});
+            }
+            if(fr->right){
+                q.push({fr->right,co+1});
+            }
+        }
+        vector<int> ans;
+        for(auto &i:mp){
+            ans.push_back(i.second);
+        }
+        return ans;
     }
 };

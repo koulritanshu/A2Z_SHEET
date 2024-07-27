@@ -1,36 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-template<class T>
-class TreeNode
+class Node
 {
 public:
-    TreeNode <T>*left;
-    TreeNode <T>*right;
-    T data;
-    TreeNode()
+    Node *left;
+    Node *right;
+    int val;
+    Node()
     {
         left = right = NULL;
         val = 0;
     }
 };
 
-void addLeft(vector<int>&ans, TreeNode<int>*root){
+void addLeft(vector<int>&ans, Node*root){
     if(!root) return;
-    TreeNode<int>*start = root;
+    Node*start = root;
     while(root->left || root->right){
-        ans.push_back(root->data);
+        ans.push_back(root->val);
         if(root->left) root = root->left;
         else if(root->right) root = root->right;
     }
 }
 
-void addRight(vector<int>&ans,TreeNode<int>*root){
+void addRight(vector<int>&ans,Node*root){
     if(!root) return;
     stack<int> st;
     while(root->left||root->right){
         if(!root) break;
-        st.push(root->data);
+        st.push(root->val);
         if(root->right) root = root->right;
         else if(root->left) root = root->left;
     }
@@ -40,19 +39,20 @@ void addRight(vector<int>&ans,TreeNode<int>*root){
     }
 }
 
-void addLeaves(vector<int>&ans, TreeNode<int>*root){
+void addLeaves(vector<int>&ans, Node*root){
     if(!root)return;
     addLeaves(ans,root->left);
-    if(root && !root->left&&!root->right) ans.push_back(root->data);
+    if(root && !root->left&&!root->right) ans.push_back(root->val);
     addLeaves(ans,root->right);
 }
 
-vector<int> traverseBoundary(TreeNode<int> *root)
+vector<int> traverseBoundary(Node *root)
 {
 	// Write your code here.
-    TreeNode<int>*temp = root;
+    if(!root->left&&!root->right)return {root->val};
+    Node*temp = root;
     vector<int> ans;
-    ans.push_back(root->data);
+    ans.push_back(root->val);
     addLeft(ans,temp->left);
     addLeaves(ans,temp);
     addRight(ans,temp->right);
